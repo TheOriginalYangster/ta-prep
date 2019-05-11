@@ -18,12 +18,17 @@ class MessageBox extends React.Component {
         })
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
         if (this.state.tweet && this.state.username) {
             axios.post('/post_tweet', this.state)
-            .then((res) => console.log(res.data, res.statusText));
+            .then((res) => console.log(res.data, res.statusText))
+            .then(() => {
+                document.getElementById('tweet').value = null;
+                this.setState({ tweet: null });
+            })
+            .catch(console.log);
         } else {
-            console.log('Fill out the form...');
+            alert('Fill out some text...'); 
         }
             
     }
