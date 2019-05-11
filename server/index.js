@@ -4,15 +4,12 @@ const request = require("request");
 
 const app = express();
 
-//Parse json and x-ww-form-urlencoded
+app.use(express.static('dist'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/", express.static("dist"));
+app.listen(1234, () => console.log('Listening on 1234!!!'));
 
-app.get("/api", (req, res) => {
-  console.log("successful request!");
-  res.send("Hi there");
-});
-
-app.listen(3000, () => console.log("Now listening on port 3000!"));
+app.post('/post_tweet', (req, res) => {
+  console.log(req.body);
+  res.status(201).send('we got it');
+})
